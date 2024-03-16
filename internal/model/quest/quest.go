@@ -1,0 +1,19 @@
+package quest
+
+import (
+	"VK/internal/model/subquest"
+	"github.com/gofrs/uuid/v5"
+	"time"
+)
+
+type Quest struct {
+	ID          uuid.UUID           `json:"id,omitempty"`
+	Title       string              `json:"title,omitempty"`
+	Description string              `json:"description,omitempty"`
+	Status      Status              `json:"status,omitempty"`
+	StartDate   time.Time           `json:"startDate,omitempty"`
+	DueDate     time.Time           `json:"dueDate,omitempty"`
+	Repeatable  bool                `json:"repeatable,omitempty"`
+	Reward      float32             `json:"reward,omitempty"`
+	Subquests   []subquest.Subquest `json:"subquests,omitempty"`
+}
