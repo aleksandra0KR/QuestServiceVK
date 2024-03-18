@@ -55,7 +55,7 @@
 ## DELETE
 #### ```DELETE /quest/subquest/{subquest_id}``` - удалить подзадание
 
-
+##
 - субд - postgreSQL
 - миграции - migrate
 
