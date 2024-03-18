@@ -42,7 +42,6 @@
 #### ```DELETE /quest/quest/{quest_id}``` - удалить задание
 
 
-
 ## Подзадание / Subuest
 ## POST
 #### ```POST /quest/subquest``` - создать подзадание
@@ -59,3 +58,9 @@
 
 - субд - postgreSQL
 - миграции - migrate
+
+
+# Запуск в Docker
+```
+docker-compose up
+```
