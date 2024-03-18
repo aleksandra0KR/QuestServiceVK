@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"VK/internal/repository"
+	"vk/internal/repository"
 )
 
 type UseCase struct {
@@ -14,6 +14,5 @@ func NewUseCase(repository *repository.Repository) *UseCase {
 	return &UseCase{
 		UserUseCase:     NewUserUseCaseImplementation(repository.UserRepository),
 		QuestUseCase:    NewQuestUseCaseImplementation(repository.QuestRepository),
-		SubquestUseCase: NewSubquestUseCaseImplementation(repository.SubquestRepository),
-	}
+		SubquestUseCase: NewSubquestUseCaseImplementation(repository.SubquestRepository)}
 }
