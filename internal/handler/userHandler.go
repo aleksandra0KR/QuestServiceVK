@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"regexp"
+	"vk/internal/model/status"
 	"vk/internal/model/user"
 )
 
@@ -35,6 +36,8 @@ func (h *Handler) userHandler(w http.ResponseWriter, r *http.Request) {
 		} else if (regexp.MustCompile(`/quest/user/updateusername/*`)).MatchString(r.URL.RequestURI()) {
 			h.updateUsername(w, r)
 		}
+	case http.MethodDelete:
+		h.deleteUser(w, r)
 	default:
 		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
 	}
@@ -136,7 +139,7 @@ func (h *Handler) changeSubquestStatus(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 
-	err = h.service.UserUseCase.ChangeSubquestsStatus(idSubquest, idUser, "done")
+	err = h.service.UserUseCase.ChangeSubquestsStatus(idSubquest, idUser, status.Done)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		log.Println(err)
@@ -217,4 +220,23 @@ func (h *Handler) updatePassword(w http.ResponseWriter, r *http.Request) {
 	log.Printf("updatePassword is completed")
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprint(w, "user changed password")
+}
+
+func (h *Handler) deleteUser(w http.ResponseWriter, r *http.Request) {
+	id, err := getUuidFromRequest(r)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		log.Println(err)
+	}
+
+	err = h.service.UserUseCase.DeleteUserByID(id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		log.Println(err)
+	}
+
+	log.Printf("deleteUser is completed")
+	w.WriteHeader(http.StatusCreated)
+	fmt.Fprintf(w, "user is deleted ")
 }

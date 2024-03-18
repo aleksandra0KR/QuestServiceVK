@@ -18,6 +18,7 @@ func (h *Handler) Handle() http.Handler {
 	mux.Handle("/quest/user", http.HandlerFunc(h.userHandler))
 	mux.Handle("/quest/user/", http.HandlerFunc(h.userHandler))
 	mux.Handle("/quest/quest", http.HandlerFunc(h.questHandler))
+	mux.Handle("/quest/quest/", http.HandlerFunc(h.questHandler))
 	mux.Handle("/quest/subquest", http.HandlerFunc(h.subquestHandler))
 	mux.Handle("/quest/subquest/", http.HandlerFunc(h.subquestHandler))
 	return mux

@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  quest-service:
+    build: ./
+    command: ./wait.sh postgres ./main
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      - POSTGRES_PASSWORD=postgres
+
+
+  postgres:
+    restart: always
+
+    image: postgres:13.3
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=quest
+
+    volumes:
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
